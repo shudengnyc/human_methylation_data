@@ -56,7 +56,7 @@ gg.manhattan <- function(df, threshold, hlight, col, ylims, title){
     geom_label_repel(data=df.tmp[df.tmp$is_annotate=="yes",], aes(label=as.factor(SNP), alpha=0.7), size=5, force=1.3) +
     
     # Custom the theme:
-    theme_bw(base_size = 22) +
+    theme_bw(base_size = 23) +
     theme( 
       plot.title = element_text(hjust = 0.5),
       legend.position="none",
@@ -73,7 +73,7 @@ plot_df$CHR = as.numeric(plot_df$CHR)
 sort(plot_df$P)[25]
 # Variables ====
 mypalette <- c("#E2709A", "#CB4577", "#BD215B", "#970F42", "#75002B") # chr color palette
-mypalette <- c("#CAB80A", "#FFF7A2", "#DDD36B", "#776E16", "#443E02") 
+
 mysnps <- c("rs11801961","rs116558464","rs61703161") # snps to highlight
 sig = 0.05/394564 # significant threshold line
 sugg = sort(plot_df$P)[25] # suggestive threshold line
