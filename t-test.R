@@ -1,4 +1,4 @@
-library(methyAnalysis)
+#library(methyAnalysis)
 library(tidyverse)
 library(CpGassoc)
 
