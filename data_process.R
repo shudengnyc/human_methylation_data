@@ -36,6 +36,36 @@ merged_df_cleaned  = merged_df[complete.cases(merged_df),]
 # merged_df[4,][5:7] 
 dim(merged_df_cleaned)
 
+
+#### Tranformation 
+
+library(rcompanion)
+merged_df_cleaned$beta_sample1_cancer %>% hist()
+plotNormalHistogram(merged_df_cleaned$beta_sample1_cancer)
+qqnorm(merged_df_cleaned$beta_sample1_cancer, ylab = "Sample Quantiles for Turbidity")
+qqline(merged_df_cleaned$beta_sample1_cancer, col = "red")
+## box - cox tranfrom 
+
+library(MASS)
+
+Box = boxcox(merged_df_cleaned$beta_sample1_cancer ~ 1,              # Transform Turbidity as a single vector
+             lambda = seq(-6,6,0.1)      # Try values -6 to 6 by 0.1
+)
+Cox = data.frame(Box$x, Box$y) 
+Cox2 = Cox[with(Cox, order(-Cox$Box.y)),]
+Cox2[1,] 
+lambda = Cox2[1, "Box.x"]
+T_box = (merged_df_cleaned$beta_sample1_cancer ^ lambda - 1)/lambda 
+plotNormalHistogram(T_box)
+
+#merged_df_cleaned$beta_sample1_cancer %>% log2() %>% hist() 
+library(EnvStats)
+boxcox.list <- boxcox(merged_df_cleaned$beta_sample1_cancer)
+plot(boxcox.list)
+plot(boxcox.list, plot.type = "Q-Q Plots", same.window = FALSE) 
+#### tranformation 
+
+
 # t.test(merged_df[4,][2:4]  ,merged_df[4,][5:7])$p.value 
 # 
 # p_val = tibble(cpg_site = "", p_val = "")
